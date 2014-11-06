@@ -1,0 +1,103 @@
+ class Node{
+	 int info;
+	 Node next;
+	 public Node(int el){
+		 this.info=el;
+		 next=null;
+	 }
+	 public Node(int el, Node n){
+		 this.info=el;
+		 this.next=n;
+	 } 
+ }
+ 
+ class SingleList{
+	 Node head,tail;
+	 public SingleList(){
+		 head=tail=null;
+	 }
+	 public boolean isEmpty(){
+		 return head==null;
+	 }
+	 public void addHead(int el){
+		 Node n=new Node(el,head);
+		 head=n;
+		 if(tail==null)
+			 head=tail=n;
+	 }
+	 public void addTail(int el){
+		 Node m=new Node(el);
+		 if(!isEmpty()){ 
+			 tail.next=m;
+			 tail=m;
+		}else
+			head=tail=m;
+	 }
+	 public void deleteHead(){
+		 if(head==tail&&!isEmpty())
+			 head=tail=null;
+		 else if(head!=tail&&!isEmpty()){
+			head=head.next; 
+		 }else if(isEmpty()){
+			 System.out.println("Cannot delete an empty list");
+		 }
+	 }
+	 public void deleteTail(){
+		 if(head==tail&&!isEmpty()){
+			 head=tail=null;
+		 }else if(head!=tail&&!isEmpty()){
+			 Node tmp;
+			 for(tmp=head;tmp.next!=tail;tmp=tmp.next);  // use a Node to record the previous one before tail
+			 tail=tmp;
+			 tail.next=null;
+		 }else if(isEmpty()){
+			 System.out.println("Cannot delete an empty list");
+		 }
+	 }
+	 public void delete(int el){
+		 if(head==tail&&head.info==el){
+			 head=tail=null;
+		 }
+		 else if(head!=tail&&head.info==el){
+			 deleteHead();
+		 }
+		 else if(head!=tail&&tail.info==el){
+			 deleteTail();
+		 }
+		 else if(head!=tail&&!isEmpty()){
+			 Node tmp;
+			 for(tmp=head;tmp.next!=null;tmp=tmp.next){
+				 if(tmp.info==el)
+					 break;
+			 }
+			 Node n;
+			 for(n=head;n.next!=tmp;n=n.next);
+			 n.next=tmp.next;
+		 }
+		 else if(isEmpty()){
+			 System.out.println("Cannot delete an empty list");
+		 }
+	 }
+	 
+     public void display(){
+    	 for(Node tmp=head;tmp!=null;tmp=tmp.next){
+    		 System.out.print(tmp.info+" ");
+    	 }
+    	 System.out.println();
+     }                                                                                                                                                                                                                                                                                                         
+	 
+	
+ }
+ 
+ class SingleLinkedList
+ {
+	public static void main(String[] args){
+		SingleList list= new SingleList();
+		list.addHead(8);
+		list.addTail(6);
+		list.addTail(4);
+		list.display();
+		list.delete(4);
+		list.display();
+	} 
+ }

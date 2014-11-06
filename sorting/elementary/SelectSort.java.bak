@@ -1,0 +1,35 @@
+class SelectSort 
+{
+	public static void selectSort(int[] input){
+		for (int i=0;i<input.length-1 ;i++ )
+		{
+			//int min=i;
+			for (int j=i+1;j<input.length ;j++ )
+			{
+				if (input[j]<inpput[i])
+				{
+					swap(i,j,input);
+				}
+			}
+		}
+	}
+
+	public static void display(int[] b){
+		for (int i=0;i<b.length ;i++ )
+		{
+			System.out.print(b[i]+" ");
+		}
+	}
+
+	public static void swap(int x, int y, int[] a){
+		int temp=a[x];
+		a[x]=a[y];
+		a[y]=temp;
+	}
+	public static void main(String[] args) 
+	{
+		int[] input={2,1,5,3};
+		selectSort(input);
+		display(input);
+	}
+}

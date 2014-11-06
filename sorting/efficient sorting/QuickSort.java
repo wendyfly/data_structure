@@ -1,0 +1,64 @@
+class QuickSort{
+	public static int split(int[] list, int lo, int hi){
+		int left=lo+1;
+		int right=hi;
+		int pivot=list[lo];
+		while(true){
+			while (left<=right){// move the left point
+				if((list[left]-pivot)<0){
+					left++;
+				}else{
+					break;// if not bigger than left elements, stop
+				}
+			}
+			while(right>left){
+				if(list[right]>pivot){
+					right--;
+				}else{
+					break;  
+				}
+			}
+			if (left>=right){
+				break; // note the use of "break". it is the way to break from the loop!
+			}
+			// swap left and right items
+			int temp=list[left];
+			list[left]=list[right];
+			list[right]=temp;
+			// advance each one step after swap
+			left++;
+			right--;
+		}
+		// swap pivot with left-1
+		list[lo]=list[left-1];
+		list[left-1]=pivot;
+		return left-1;
+	}
+	public static void sort(int[] list, int lo, int hi){
+		if((hi-lo)<=0){// fewer than 2 items
+			return;
+		}
+		int splitPoint=split(list,lo,hi);// record the split location
+		sort(list,lo,splitPoint-1);// left subarray recursion
+		sort(list,splitPoint+1,hi); // right subarray recursion
+		
+	}
+	public static void display(int[] input){
+		for(int i=0;i<input.length;i++){
+			System.out.print(input[i]+" ");
+		}
+	}
+	
+	public static void sort(int[] list){
+		if(list.length<=1){
+			return;
+		}
+	}
+	public static void main(String[] args){
+		int[] a={3,1,6,11,4};
+		sort(a,0,4);
+		display(a);
+		
+	}
+	
+}

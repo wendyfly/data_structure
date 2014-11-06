@@ -1,0 +1,31 @@
+class SubSum{
+	
+	public static boolean subSum(int n, int[] input, int goal){
+		if(goal==0){
+			System.out.println("Done");
+			return true;
+		}
+		if(goal<0||n>input.length-1){
+			return false;
+		} 
+		if(subSum(n+1,input,goal-input[n])){
+			System.out.print(input[n]+" ");
+			return true;
+		}
+		if(subSum(n+1,input,goal)){
+			return true;
+		}
+	 return false;
+	}
+	
+}
+
+public class main{
+	public static void main(String[] args){
+		SubSum n= new SubSum();
+			int[] input={1,2,3,4,5};
+		int goal=5;
+		n.subSum(0, input, goal);
+	}
+	
+}

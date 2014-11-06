@@ -1,0 +1,175 @@
+class StackX 
+{
+	private final int length=10;
+	private int[] array; // function as a stack
+	int top;
+	public boolean isEmpty(){ // check the stack if it is empty
+		if(top==-1){
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean isFull(){
+		if(top==length-1){
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean push(int value){
+		if(isFull()){
+			return false;
+		}
+		top++;
+		array[top]=value;
+		return true;
+	}
+
+	public  int pop(){
+		if(isEmpty()){
+			return -1;
+		}
+		int temp=array[top];
+		top--;
+		return temp;
+	}
+
+	public int peek(){
+		if(isEmpty()){
+			return -1;
+		}
+		int temp=array[top];
+		return temp;
+	}
+
+}
+
+
+class Vertex
+{	
+	char value;
+	boolean isVisited;
+	public Vertex(char value){
+		this.value=value;
+		this.isVisited=false;
+	}
+
+	public void setValue(char value){
+		this.value=value;
+	}
+
+	public char getValue(){
+		return this.value;
+	}
+
+	public void setIsVisited(boolean isVisited){
+		this.isVisited=isVisited;
+	}
+
+	public boolean getIsVisited(){
+		return this.isVisited;
+	}
+
+}
+
+class DFSGraph
+{
+	final int size=10;
+	Vertex[] vertexList;
+	int[][] matrix;// record edge
+	int numItems; // record the number of vertex in graph
+	StackX stack;
+
+	public DFSGraph(){
+		vertexList= new Vertex[size];
+		matrix= new int[size][size];
+		for (int i=0;i<matrix.length ;i++ ) // initialize the edge matrix
+		{
+			for (int j=0;j<matrix[i].length ;j++ )
+			{
+				matrix[i][j]=0;
+			}
+		}
+		numItems=0;
+		stack= new StackX();
+	}
+
+	public boolean isEmpty(){
+		if(numItems==0){
+			return true ;
+		}
+		return false ;
+	}
+	public boolean isFull(){
+		if(numItems==size){
+			return true ;
+		}
+		return false ;
+	}
+
+	public static boolean addVertex(char value){
+		if(isFull()){
+			return false;
+		}
+
+		Vertex vertex= new Vertex(value);
+		vertexList[numItems]=vertex; // record in the graph
+		numItems++;
+		return true;
+	}
+
+	public static boolean addEdge(int x, int y){
+		if(x<0||y<0||x>size-1||y>size-1){ // note the boundary condition
+			return false;
+		}
+		matrix[x][y]=1;
+		matrix[y][x]=1;// undirected
+		return true;
+	}
+
+	public void display(int i){
+		System.out.print(vertexList[i].getValue()+" ");
+	}
+	
+	public int getUnvisitedVertex(int i){ // check vertex i's neighbors
+		for (int j=0;j<size ;j++ )
+		{
+			if (matrix[i][j]==1&&vertexList[j].getIsVisited()==false)
+			{
+				return j;
+			}
+		}
+		return -1;
+	}
+
+	public static void dfs(){
+		display(0);
+		vertexList[0].setIsVisited(true);
+		stack.push(0);
+		while (!stack.isEmpty())
+		{
+			int temp= getUnvisitedVertex(stack.peek());
+			if(temp==-1){ // no unvisited neighbor
+				stack.pop();
+			}else{
+				display(temp);
+				vertexList[temp].setIsVisited(true);
+				stack.push(temp);
+			}
+		}
+		for (int i=0;i<size ;i++ ) // get all vertex
+		{
+			if (vertexList[i]!=null)
+			{
+				vertexList[i].setIsVisited(false);
+			}
+
+		}
+
+	}
+
+
+	
+
+}  
